@@ -4,10 +4,8 @@
 // @description Turns .99 into 1.00
 // @author      Shelly the Vacu
 // @version     0.0.2f
-// @include     https://*.amazon.tld/*
-// @include     http://*.amazon.tld/*
-// @exclude     https://*.amazon.tld/gp/*
-// @exclude     http://*.amazon.tld/gp/*
+// @include     https://*.amazon.tld
+// @include     http://*.amazon.tld
 // @include     https://*.amazon.tld/gp/product/*
 // @include     http://*.amazon.tld/gp/product/*
 // @grant       none
