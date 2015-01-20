@@ -14,14 +14,16 @@
 // @require 	http://code.jquery.com/jquery-latest.min.js
 // ==/UserScript==
 
+var PRICE_ROUNDING_DIVISOR = 2; //Fifty-cent increments
+
 //window.amazon00Extension = this; //DEBUG
 
 //Currently amazon doesn't use jquery, but just in case:
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-function round(num){ //round to the nearest quarter
-    if(num > 0.75)
-	return (Math.round(num*4)/4).toFixed(2);
+function round(num, divisor){ //round to the nearest division
+    if(num > (1-(1/divisor)))
+		return (Math.round(num*divisor)/divisor).toFixed(2);
     return num;
 }
 
@@ -45,7 +47,7 @@ function changeAll(el){
 	var match = myRe.exec(s);
 	if(match != null){
 	    //console.log(match);
-	    $(this).text($(this).text().replace(match[0],"$"+round(match[1])));
+	    $(this).text($(this).text().replace(match[0],"$"+round(match[1],PRICE_ROUNDING_DIVISOR)));
 	}
     });
 }
