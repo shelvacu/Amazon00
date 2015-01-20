@@ -53,7 +53,7 @@ function changeAll(el){
 }
 changeAll();
 
-//Amazon injects some ads at the botton (labelled 'sponsored') which are not caught by this
+//Amazon injects some ads at the bottom (labelled 'sponsored') which are not caught by this
 
 var observer = new MutationObserver(function(mutations){
     mutations.forEach(function(mutation){
