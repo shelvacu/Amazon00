@@ -45,7 +45,7 @@ function changeAll(el){
 	var s = $(this).text();
 	//console.log(s);
 	var match = myRe.exec(s);
-	if(match != null){
+	if(match !== null){
 	    //console.log(match);
 	    $(this).text($(this).text().replace(match[0],"$"+round(match[1],PRICE_ROUNDING_DIVISOR)));
 	}
