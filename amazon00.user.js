@@ -4,24 +4,23 @@
 // @description Turns .99 into 1.00
 // @author      Shelly the Vacu
 // @version     0.0.2f
-// @include     https://*.amazon.tld/*
-// @include     http://*.amazon.tld/*
-// @exclude     https://*.amazon.tld/gp/*
-// @exclude     http://*.amazon.tld/gp/*
-// @include     https://*.amazon.tld/gp/product/*
-// @include     http://*.amazon.tld/gp/product/*
+// @include     http*://*.amazon.tld
+// @include     http*://*.amazon.tld/gp/product/*
+// @include     http*://*.amazon.tld/*/dp/*
 // @grant       none
 // @require 	http://code.jquery.com/jquery-latest.min.js
 // ==/UserScript==
+
+var PRICE_ROUNDING_DIVISOR = 2; //Fifty-cent increments
 
 //window.amazon00Extension = this; //DEBUG
 
 //Currently amazon doesn't use jquery, but just in case:
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-function round(num){ //round to the nearest quarter
-    if(num > 0.75)
-	return (Math.round(num*4)/4).toFixed(2);
+function round(num, divisor){ //round to the nearest division
+    if(num > (1-(1/divisor)))
+		return (Math.round(num*divisor)/divisor).toFixed(2);
     return num;
 }
 
@@ -33,6 +32,7 @@ function changeAll(el){
     $(el).find('.s-price,'+
 	       '.price,'+
 	       '.a-color-price,'+
+	       '.a-size-mini,'+
 	       '.pa-sp-buy-price,'+
 	       '.pa-sp-list-price,'+
 	       '.a-text-strike,'+
@@ -43,15 +43,15 @@ function changeAll(el){
 	var s = $(this).text();
 	//console.log(s);
 	var match = myRe.exec(s);
-	if(match != null){
+	if(match !== null){
 	    //console.log(match);
-	    $(this).text($(this).text().replace(match[0],"$"+round(match[1])));
+	    $(this).text($(this).text().replace(match[0],"$"+round(match[1],PRICE_ROUNDING_DIVISOR)));
 	}
     });
 }
 changeAll();
 
-//Amazon injects some ads at the botton (labelled 'sponsored') which are not caught by this
+//Amazon injects some ads at the bottom (labelled 'sponsored') which are not caught by this
 
 var observer = new MutationObserver(function(mutations){
     mutations.forEach(function(mutation){
