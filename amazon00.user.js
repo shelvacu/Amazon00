@@ -32,6 +32,7 @@ function changeAll(el){
     $(el).find('.s-price,'+
 	       '.price,'+
 	       '.a-color-price,'+
+	       '.a-size-mini,'+
 	       '.pa-sp-buy-price,'+
 	       '.pa-sp-list-price,'+
 	       '.a-text-strike,'+
